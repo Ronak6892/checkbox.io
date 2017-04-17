@@ -4,20 +4,26 @@ var _ = require('underscore');
 var emailjs = require('emailjs');
 var fileService = require('./upload.js');
 
+
+
+
 var Server = mongo.Server,
     Db = mongo.Db,
-    ObjectID = mongo.BSONPure.ObjectID;
+    ObjectID = mongo.ObjectID;
  
 var emailServer  = emailjs.server.connect({
-   user:    "supportemail@domain.com", 
-   password:"supportpwd", 
+   user:    process.env.EMAIL_USER, 
+   password: process.env.EMAIL_PSWD, 
    host:    "smtp.gmail.com", 
    ssl:     true
 });
 
+console.log("EMAIL - > "+process.env.EMAIL_USER+", pswd: "+process.env.EMAIL_PSWD);
+var mongo_user = process.env.MONGO_USER;
+var mongo_pswd = process.env.MONGO_PSWD;
 var MongoClient = mongo.MongoClient;
 var db = null;
-MongoClient.connect("mongodb://user:password@ip:27017/site?authSource=admin", function(err, authdb) {
+MongoClient.connect("mongodb://"+mongo_user+":"+mongo_pswd+"@localhost:27017/site?authSource=admin", function(err, authdb) {
   // Now you can use the database in the db variable
   db = authdb;
   console.log( err || "connected!" );
