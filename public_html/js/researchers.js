@@ -1,7 +1,7 @@
 var firstLoad = true;
 
 var AppViewModel = {};
-//...tt
+//...
 function SetupEvents()
 {
 
